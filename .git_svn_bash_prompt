@@ -36,10 +36,6 @@ LIGHT_GREEN="\[\033[1;32m\]"
   BOLD_BLUE="\[\033[1;34m\]"
  BOLD_BLACK="\[\033[1m\]"
 
-# The font weight escape codes.
-BOLD="\[\033[1m\]"
-BOLD_NONE="\[\033[0m\]"
-
 # Detect whether the current directory is a git repository.
 function is_git_repository {
   git branch > /dev/null 2>&1
@@ -113,7 +109,7 @@ function set_svn_branch {
 # previous command.
 function set_prompt_symbol () {
   if test $1 -eq 0 ; then
-      PROMPT_SYMBOL="${BLUE}\$${COLOR_NONE}"
+      PROMPT_SYMBOL="${BOLD_BLUE}\$${COLOR_NONE}"
   else
       PROMPT_SYMBOL="${RED}\$${COLOR_NONE}"
   fi
