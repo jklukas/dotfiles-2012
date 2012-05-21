@@ -37,6 +37,9 @@ export HISTSIZE PROMPT_COMMAND
 export HISTIGNORE="&:ls:exit:cd:searchHistory*"
 export HISTCONTROL=erasedups
 
+# Add command-specific auto-completion
+source ~/.git-completion.sh
+
 # Setup for todo.txt app
 PATH=$PATH:$HOME/Dropbox/ToDo
 alias t='todo.sh'
@@ -70,6 +73,11 @@ fi
 
 # Change the default prompt
 . ~/.git_svn_bash_prompt
+# PS1="${BOLD_BLACK}[${BOLD_BLUE}\u${COLOR_NONE}@${BOLD_BLUE}\h${BOLD_BLACK}]"
+# PS1="${PS1} ${BLUE}\w${COLOR_NONE}\n"
+# PS1="${PS1}$(__git_ps1 " (%s)") $(__prompt_symbol $?) "
+
+
 
 # Wrappers around scp
 function body_scpToWisc { set +f; scp -o"ProxyCommand ssh jklukas@login.hep.wisc.edu nc $1 22 2>/dev/null" $2 jklukas@$1.hep.wisc.edu:$3; }
