@@ -132,7 +132,7 @@ function set_bash_prompt () {
   
   # Set the bash prompt variable.
   session_info=""
-  PS1="${BOLD_BLACK}[${BOLD_BLUE}\u${COLOR_NONE}@${BOLD_BLUE}\h${BOLD_BLACK}] ${BLUE}\w${COLOR_NONE}\n${BRANCH}${PROMPT_SYMBOL} "
+  PS1="${BOLD_BLACK}[${BOLD_BLUE}\u${COLOR_NONE}@${BOLD_BLUE}\h${COLOR_NONE}${BOLD_BLACK}] ${BLUE}\w${COLOR_NONE}\n${BRANCH}${PROMPT_SYMBOL} "
 }
 
 # Tell bash to execute this function just before displaying its prompt.
