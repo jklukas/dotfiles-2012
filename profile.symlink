@@ -1,34 +1,24 @@
 # ~/.profile: executed by the command interpreter for login shells.
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
 # exists.
-# see /usr/share/doc/bash/examples/startup-files for examples.
-# the files are located in the bash-doc package.
 
-# the default umask is set in /etc/profile; for setting the umask
-# for ssh logins, install and configure the libpam-umask package.
-#umask 022
-
-echo "Running .profile"
-[ -f ~/.myflags/prod ] && echo "This is prod"
+# Import some minimal configuration local to this machine, held in ~/.myenv
 [ -f ~/.myenv ] && . ~/.myenv
+[ -z "$CFGDIR " ] && echo "Define CFGDIR in ~/.myenv"  && die 1
 
-. $CONFIGDIR/functions.sh
-. $CONFIGDIR/environment.sh
+# Import function and alias definitions
+. $CFGDIR/functions.sh
 
-# echo "Versions: $BASH_VERSION $KSH_VERSION"
+# Build the executable path
+[ -d "~/bin"  ] && PATH="~/bin:$PATH"
+[ -d "~/.bin" ] && PATH="~/.bin:$PATH"
+export PATH=$(puniq $PATH)
 
+# If they exist, set up preferred programs
+command -v emacs > /dev/null && export EDITOR=emacs
+command -v less  > /dev/null && export  PAGER=less
+
+# Load bash or ksh settings
 [ -n "$BASH_VERSION" ] && xsource ~/.bashrc
 [ -n "$KSH_VERSION"  ] && xsource ~/.kshrc
 
-# # if running bash
-# if [ -n "$BASH_VERSION" ]; then
-#     # include .bashrc if it exists
-#     if [ -f "$HOME/.bashrc" ]; then
-# 	. "$HOME/.bashrc"
-#     fi
-# fi
-
-# # set PATH so it includes user's private bin if it exists
-# if [ -d "$HOME/bin" ] ; then
-#     PATH="$HOME/bin:$PATH"
-# fi

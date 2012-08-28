@@ -1,7 +1,5 @@
 #!/bin/sh
 
-echo "In functions.sh"
-
 # Usage: puniq [<path>]
 # Remove duplicate entries from a PATH style value while retaining
 # the original order. Use PATH if no <path> is given.
@@ -20,16 +18,10 @@ xsource () {
     [ -f $1 ] && . $1
 }
 
-# Usage: sshpush <user@hostname>
-# Push public ssh key to a server.
-sshpush () {
-    cat ~/.ssh/id_rsa.pub | ssh $1 'cat >> .ssh/authorized_keys'
-}
-
 # Usage: solarize
 # Set up environment for solarized colors
 solarize () {
-    eval `dircolors $CONFIGDIR/dircolors.ansi-dark`
+    eval `dircolors $CFGDIR/dircolors.ansi-dark`
 }
 
 # Usage: rmtilde <path>
@@ -37,11 +29,19 @@ solarize () {
 rmtilde () {
     DIR=$1
     [ -z "$DIR" ] && DIR=$PWD
-    rm $DIR/*~
+    ls -A $DIR | grep '~$' | xargs rm
+}
+
+# Usage: searchhist <term>
+# Search for <term> in the shell history
+searchhist () {
+    history -a
+    history | grep $1
 }
 
 # Aliases
 alias ls='ls --color'
-alias nemacs='emacs -nw'
-alias search-history='history | grep'
-
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+alias google-chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'

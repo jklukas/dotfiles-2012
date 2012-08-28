@@ -1,4 +1,2 @@
-echo "Running .kshrc"
-#. $CONFIGDIR/environment.sh
-. $CONFIGDIR/functions.sh
-. $CONFIGDIR/rc.sh
+. $CFGDIR/functions.sh
+. $CFGDIR/rc.sh
