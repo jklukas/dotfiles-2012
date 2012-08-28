@@ -18,6 +18,11 @@ export PATH=$(puniq $PATH)
 command -v emacs > /dev/null && export EDITOR=emacs
 command -v less  > /dev/null && export  PAGER=less
 
+# Set other environment variables
+export GIT_PS1_SHOWDIRTYSTATE=yes
+export GIT_PS1_SHOWSTASHSTATE=yes
+export GIT_PS1_SHOWUPSTREAM="auto"
+
 # Load bash or ksh settings
 [ -n "$BASH_VERSION" ] && xsource ~/.bashrc
 [ -n "$KSH_VERSION"  ] && xsource ~/.kshrc
