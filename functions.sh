@@ -58,7 +58,11 @@ if [ -x /epic/bin/epiccontrol ]; then
 	done
     }
     ENVIRONMENTS=`/epic/bin/epiccontrol printenvs 2> /dev/null | tail -n +3 | tr ',' ' ' | tr 'A-Z' 'a-z'`
-    while read x; do
+    OLDIFS=$IFS
+    IFS='\n'
+    for x in $ENVIRONMENTS; do
+	IFS=$OLDIFS
 	alias_environments $x
-    done < <(echo $ENVIRONMENTS)
+    done
+    IFS=$OLDIFS
 fi
