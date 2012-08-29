@@ -50,19 +50,16 @@ alias google-chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chr
 # An instance called BLD with environments JMH and CHP will generate aliases bldsys, jmh, and chp.
 if [ -x /epic/bin/epiccontrol ]; then
     alias_environments () {
-	INST=$1
+	INSTANCE=$1
 	shift
-	alias ${INST}sys="csession $INST -U %sys"
-	for E in $@; do
-    	    alias $E="csession $INST -U $E";
+	alias ${INSTANCE}sys="csession $INSTANCE -U %sys"
+	for ENVIRONMENT in $@; do
+    	    alias $ENVIRONMENT="csession $INSTANCE -U $ENVIRONMENT";
 	done
     }
     ENVIRONMENTS=`/epic/bin/epiccontrol printenvs 2> /dev/null | tail -n +3 | tr ',' ' ' | tr 'A-Z' 'a-z'`
-    OLDIFS=$IFS
-    IFS='\n'
-    for x in $ENVIRONMENTS; do
-	IFS=$OLDIFS
+    while read x; do
+        echo $x
 	alias_environments $x
-    done
-    IFS=$OLDIFS
+    done <<< "$ENVIRONMENTS"
 fi

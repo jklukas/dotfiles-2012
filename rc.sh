@@ -1,6 +1,8 @@
 # Settings for all interactive shells
 # Called by .bashrc and .kshrc
 
+set -o emacs
+
 CNULL="[m"
 CRED="[31m"
 CBOLDRED="[1m[31m"
