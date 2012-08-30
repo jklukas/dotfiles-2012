@@ -12,6 +12,7 @@
 # Build the executable path
 [ -d "~/bin"  ] && PATH="~/bin:$PATH"
 [ -d "~/.bin" ] && PATH="~/.bin:$PATH"
+[ -d "/epic/bin" ] && PATH="$PATH:/epic/bin"
 export PATH=$(puniq $PATH)
 
 # If they exist, set up preferred programs
@@ -27,3 +28,5 @@ export GIT_PS1_SHOWUPSTREAM="auto"
 [ -n "$BASH_VERSION" ] && xsource ~/.bashrc
 [ -n "$KSH_VERSION"  ] && xsource ~/.kshrc
 
+# Make sure ksh knows about its rc file
+export ENV=~/.kshrc

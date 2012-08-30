@@ -46,20 +46,24 @@ alias la='ls -A'
 alias l='ls -CF'
 alias google-chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
 
-# Generate aliases to quickly csession into each %SYS and APP namespace on the system.
-# An instance called BLD with environments JMH and CHP will generate aliases bldsys, jmh, and chp.
+# Generate aliases to quickly csession into each %SYS and APP namespace on 
+# the system. An instance called BLD with environments JMH and CHP will 
+# generate three aliases:
+#     bldsys='csession bld -U %sys'
+#     jmh='csession bld -U jmh'
+#     chp='csession bld -U chp'
 if [ -x /epic/bin/epiccontrol ]; then
-    alias_environments () {
-	INSTANCE=$1
-	shift
+    ENVFILE=/tmp/$$.printenvs
+    /epic/bin/epiccontrol printenvs 2>/dev/null \
+        | tail -n +3 \
+	| tr ',' ' ' \
+	| tr 'A-Z' 'a-z' \
+	> $ENVFILE
+    while read INSTANCE ENVIRONMENTS; do
 	alias ${INSTANCE}sys="csession $INSTANCE -U %sys"
-	for ENVIRONMENT in $@; do
-    	    alias $ENVIRONMENT="csession $INSTANCE -U $ENVIRONMENT";
+	for ENVIRONMENT in $ENVIRONMENTS; do
+	    alias $ENVIRONMENT="csession $INSTANCE -U $ENVIRONMENT";
 	done
-    }
-    ENVIRONMENTS=`/epic/bin/epiccontrol printenvs 2> /dev/null | tail -n +3 | tr ',' ' ' | tr 'A-Z' 'a-z'`
-    while read x; do
-        echo $x
-	alias_environments $x
-    done <<< "$ENVIRONMENTS"
+    done < "$ENVFILE"
+    rm $ENVFILE
 fi
