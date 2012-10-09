@@ -1,6 +1,7 @@
+#!/bin/sh
 # ~/.profile: executed by the command interpreter for login shells.
-# This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
-# exists.
+# This file will always be read at login by ksh, but bash will ignore it
+# if either ~/.bash_profile or ~/.bash_login exists.
 
 # Import some minimal configuration local to this machine, held in ~/.myenv
 [ -f ~/.myenv ] && . ~/.myenv
@@ -10,9 +11,7 @@
 . $CFGDIR/functions.sh
 
 # Build the executable path
-[ -d "~/bin"  ] && PATH="~/bin:$PATH"
-[ -d "~/.bin" ] && PATH="~/.bin:$PATH"
-[ -d "/epic/bin" ] && PATH="$PATH:/epic/bin"
+padd /bin /usr/bin /usr/local/bin ~/bin ~/.bin /epic/bin
 export PATH=$(puniq $PATH)
 
 # If they exist, set up preferred programs
@@ -30,3 +29,5 @@ export GIT_PS1_SHOWUPSTREAM="auto"
 
 # Make sure ksh knows about its rc file
 export ENV=~/.kshrc
+
+
